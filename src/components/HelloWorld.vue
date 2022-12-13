@@ -1,5 +1,5 @@
 <template>
-  <div><p>hello world</p></div>
+  <div><p>TODO App</p></div>
 </template>
 
 <script lang="ts">
