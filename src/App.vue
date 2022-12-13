@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TodoItem></TodoItem>
+    <TodoItem description="123xx"></TodoItem >
   </div>
 </template>
 
