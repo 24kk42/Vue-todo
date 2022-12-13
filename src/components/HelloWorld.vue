@@ -1,5 +1,5 @@
 <template>
-  <div><p>TODO App</p></div>
+  <div><p>TODO App with TypeScript</p></div>
 </template>
 
 <script lang="ts">
