@@ -1,16 +1,16 @@
 <template>
   <div>
-    <HelloWorld />
+    <TodoItem></TodoItem>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from './components/HelloWorld.vue';
+import TodoItem from './components/todo-item.vue';
 
 @Component({
   components: {
-    HelloWorld,
+    TodoItem,
   },
 })
 export default class App extends Vue { }
