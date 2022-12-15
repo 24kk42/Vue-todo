@@ -1,0 +1,42 @@
+* {}
+
+body {}
+
+div {
+    display: flex;
+    border-radius: 5px;
+    justify-content: center;
+}
+
+table,
+th,
+td {
+    border-radius: 3px;
+    text-align: center;
+}
+
+th {
+    background-color: #ff8a65;
+    color: white;
+}
+
+th,
+td {
+    width: 150px;
+}
+
+button {
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background-color: #ff8a65;
+    color: white;
+}
+
+button:hover {
+    background-color: #ff6e40;
+}
+
+[contenteditable] {
+    outline: 0;
+}

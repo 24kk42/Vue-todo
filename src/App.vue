@@ -1,16 +1,17 @@
 <template>
   <div>
-    <TodoItem description="123xx"></TodoItem >
+    <Table></Table>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import TodoItem from './components/todo-item.vue';
+import Table from './components/Table/table.vue'
 
 @Component({
   components: {
-    TodoItem,
+    Table,
+
   },
 })
 export default class App extends Vue { }
