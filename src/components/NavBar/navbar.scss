@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+.navbar-wrapper {}
+
+header {
+    background-color: #0174ff;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-size: 35px;
+}
+
+.logo {
+    margin-left: 15px;
+    font-family: 'Open Sans', serif;
+    font-weight: 800;
+}

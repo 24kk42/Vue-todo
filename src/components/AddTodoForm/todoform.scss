@@ -1,0 +1,32 @@
+.add-todo-form {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.todo-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.todo-input {
+    width: 250px;
+    border-radius: 25px;
+    border: 1px solid #c6c6c6;
+    height: 25px;
+}
+
+.todo-form-submit {
+    width: 100px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #0174ff;
+    height: 30px;
+}
+
+.todo-form-submit:hover {
+    background-color: #014291;
+}

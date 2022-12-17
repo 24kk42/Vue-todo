@@ -1,4 +1,4 @@
-<div>
+<div class="table-wrapper">
     <table>
         <tr>
             <th>{{checkboxHeader}}</th>
@@ -8,10 +8,10 @@
         </tr>
 
         <tr v-for="(todo,index) in todoArray">
-            <td><input type="checkbox" v-bind:checked="todo.isDone" /></td>
+            <td><input class="check-box" type="checkbox" v-bind:checked="todo.isDone" @click="checkHandler(index)" /></td>
             <td>{{todo.id}}</td>
-            <td contenteditable="true" spellcheck="false">{{todo.description}}</td>
-            <td><button :id="index" @click="deleteHandler(index)">Delete</button></td>
+            <td :id="index/1000" contenteditable="true" spellcheck="false" @keypress="labelHandler(index,$event)" @blur="blurHandler(index, $event)">{{todo.description}}</td>
+            <td><button class="delete-btn" :id="index" @click="deleteHandler(index)">Delete</button></td>
         </tr>
     </table>
 </div>

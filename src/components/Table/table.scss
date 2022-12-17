@@ -1,8 +1,12 @@
-* {}
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+* {
+    font-family: 'Open Sans', serif;
+    font-weight: 100;
+}
 
 body {}
 
-div {
+.table-wrapper {
     display: flex;
     border-radius: 5px;
     justify-content: center;
@@ -16,7 +20,7 @@ td {
 }
 
 th {
-    background-color: #ff8a65;
+    background-color: #0174ff;
     color: white;
 }
 
@@ -25,18 +29,27 @@ td {
     width: 150px;
 }
 
-button {
+.delete-btn {
     border-radius: 5px;
     border: none;
     cursor: pointer;
-    background-color: #ff8a65;
+    background-color: #0174ff;
     color: white;
 }
 
-button:hover {
-    background-color: #ff6e40;
+.delete-btn:hover {
+    background-color: #014291;
 }
 
 [contenteditable] {
     outline: 0;
+}
+
+.table-wrapper {
+    margin-top: 50px;
+}
+
+.check-box {
+    height: 20px;
+    width: 20px;
 }
