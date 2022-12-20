@@ -1,11 +1,10 @@
 <template>
-  <div class="body">
+  <div class="page">
     <NavBar></NavBar>
-    <TodoForm></TodoForm>
-    <Table></Table>  
+    <div class="body">
+      <Table></Table>
+    </div>
   </div>
-
-
 </template>
 
 <script lang="ts">
@@ -26,12 +25,14 @@ export default class App extends Vue { }
 </script>
 
 <style lang="scss">
-  body{
-    margin: 0;
-  }
-  .body{
-    display: flex;
-    flex-direction: column;
-  }
+body {
+  margin: 0;
+}
 
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
 </style>

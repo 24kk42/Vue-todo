@@ -1,6 +1,6 @@
 <div class="add-todo-form">
-    <form class="todo-form">
-        <input class="todo-input" type="text" placeholder="  Add Todo..."><br>
-        <input class="todo-form-submit" type="submit" value="Add Todo">
+    <form class="todo-form" @submit="submitHandler($event)">
+        <input ref="formInput" class="todo-input" type="text" placeholder="Add Todo..."><br>
+        <input id="submitButton" class="todo-form-submit" type="submit" value="Add Todo">
     </form>
 </div>

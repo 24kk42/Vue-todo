@@ -3,6 +3,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import apolloClient from "@/apollo/apollo";
 import gql from "graphql-tag";
 import ITodo from "../../interfaces/ITodo";
+import TodoForm from "../AddTodoForm/todoform.vue";
 
 const GET_MY_TODOS = gql`
   query MyQuery {
@@ -39,17 +40,36 @@ const SET_TODO_DESC = gql`
 `
 
 
-@Component
+@Component({
+  components:{
+    "todo-form":TodoForm
+  }
+})
 export default class Table extends Vue {
+  
   @Prop({ default: "State" }) protected checkboxHeader?: string;
   @Prop({ default: "ID" }) protected idHeader?: string;
   @Prop({ default: "Description" }) protected descriptionHeader?: string;
   @Prop({ default: "Action" }) protected actionsHeader?: string;
 
-  protected todoArray : Array<ITodo> = [];
+  public todoArray : Array<ITodo> = [];
+
 
   public setTodoArray(todo:ITodo){
     this.todoArray.push(todo)
+   
+  }
+
+
+
+  public async getTodoArray(){
+    const { data } = await apolloClient.query({
+      query: GET_MY_TODOS,
+    });
+
+    const arr = data.todos
+
+    return arr
   }
 
   protected async apollo() {
@@ -60,10 +80,10 @@ export default class Table extends Vue {
     return data;
   }
 
-  protected async mounted() {
-    const result = await this.apollo();
+  protected async created() {
 
-    this.todoArray = result.todos;
+    const result = await this.apollo();
+    this.todoArray =  result.todos;
   }
 
   protected async deleteHandler(id: number) {
@@ -92,17 +112,18 @@ export default class Table extends Vue {
 
   protected async labelHandler(index:number, e:KeyboardEvent){
     const editId = this.todoArray[index].id
+    const elem = <HTMLElement> e.target
     if(e.key == "Enter"){
-      document.getElementById((index/1000).toString())!.contentEditable = 'false'
+      elem.contentEditable= "false"
       await apolloClient.mutate({
         mutation: SET_TODO_DESC,
         variables: {
           id: editId,
-          description: document.getElementById((index/1000).toString())!.innerHTML
+          description: elem.innerHTML
         }
       })
     }
-    document.getElementById((index/1000).toString())!.contentEditable = 'true'
+    elem.contentEditable = 'true'
   }
 
   protected async blurHandler(index:number, e:Event){

@@ -10,6 +10,11 @@ body {}
     display: flex;
     border-radius: 5px;
     justify-content: center;
+    flex-direction: column;
+}
+
+table {
+    margin-top: 30px;
 }
 
 table,
@@ -43,10 +48,6 @@ td {
 
 [contenteditable] {
     outline: 0;
-}
-
-.table-wrapper {
-    margin-top: 50px;
 }
 
 .check-box {
