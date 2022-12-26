@@ -2,15 +2,21 @@
     <todo-form></todo-form>
     <table>
         <tr>
-            <th>{{checkboxHeader}}</th>
-            <th>{{idHeader}}</th>
+            <th class="checkbox-header">{{checkboxHeader}} ▼
+                <div class="dropdown" ref="dropDownMenu">
+                    <span class="dropdown-item" @click="filterStr = 'done'">Done</span>
+                    <span class="dropdown-item" @click="filterStr= 'notdone'">Not Done</span>
+                    <span class="dropdown-item" @click="filterStr='all'">All</span>
+                </div>
+            </th>
+            <th>{{priorityHeader}}</th>
             <th>{{descriptionHeader}}</th>
             <th>{{actionsHeader}}</th>
         </tr>
 
-        <tr v-for="(todo,index) in todoArray">
-            <td><input class="check-box" type="checkbox" v-bind:checked="todo.isDone" @click="checkHandler(index)" /></td>
-            <td>{{todo.id}}</td>
+        <tr v-for="(todo,index) in displayedArr">
+            <td><input class="check-box" type="checkbox" :checked="todo.isDone" @click="checkHandler(index)" /></td>
+            <td>{{todo.priority}}</td>
             <td contenteditable="true" spellcheck="false" @keypress="labelHandler(index,$event)" @blur="blurHandler(index, $event)">{{todo.description}}</td>
             <td><button class="delete-btn" :id="index" @click="deleteHandler(index)">Delete</button></td>
         </tr>
