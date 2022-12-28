@@ -128,6 +128,7 @@ export default class Table extends Vue {
         this.displayedArr = this.todoArray.filter(todo => todo.priority === priorityArr[0]|| todo.priority === priorityArr[1]|| todo.priority === priorityArr[2])
       }
     }
+    
     else{
       const stateFlag = stateArr[0] === 'Done' ? true : false ;
 
