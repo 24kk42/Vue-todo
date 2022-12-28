@@ -56,30 +56,6 @@ td {
     width: 20px;
 }
 
-.dropdown {
-    border-radius: 3px;
-    position: absolute;
-    width: 150px;
-    display: none;
-    background-color: #014ca8;
-}
-
-.checkbox-header:hover .dropdown {
-    display: block;
-}
-
-.dropdown-item {
-    font-size: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-    height: 30px;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
-.dropdown-item:hover {
-    background-color: #0174ff;
+.table-priority {
+    cursor: default;
 }
