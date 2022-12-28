@@ -1,7 +1,7 @@
 <div class="add-todo-form">
     <form class="todo-form" @submit="submitHandler($event)">
         <input ref="formInput" class="todo-input" type="text" required placeholder="Add Todo..."><br>
-        <span class="priority-Tag">Priority :
+        <span class="priority-tag"> <p class="span-name">Priority :</p>
             <input name="priority" class="radio-input" id="low" type="radio" value="Low" @click="radioButtonHandler($event)">
             <label for="low">Low</label>
             <input name="priority" class="radio-input" id="mid" type="radio" value="Mid" @click="radioButtonHandler($event)">

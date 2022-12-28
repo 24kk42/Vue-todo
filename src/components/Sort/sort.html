@@ -1,0 +1,25 @@
+<div class="sort-table">
+    <form class="sort-form" @submit="submitSortHandler($event)">
+        <span class="sort-span">
+            <p class="span-name">State :</p>
+            <input name="state" class="sort-radio-input" id="done" type="radio" value="Done" @click="stateRadioButtonHandler($event,$event)">
+            <label for="done">Done</label>
+            <input name="state" class="sort-radio-input" id="notdone" type="radio" value="NotDone" @click="stateRadioButtonHandler($event,$event)">
+            <label for="notdone">Not Done</label>
+        </span>
+
+        <span class="sort-span">
+            <p class="span-name">Priority :</p>
+            <input class="sort-radio-input" id="Low" type="radio" value="Low" @click="priorityRadioButtonHandler($event,$event)">
+            <label for="Low">Low</label>
+            <input class="sort-radio-input" id="Mid" type="radio" value="Mid" @click="priorityRadioButtonHandler($event,$event)">
+            <label for="Mid">Mid</label>
+            <input class="sort-radio-input" id="High" type="radio" value="High" @click="priorityRadioButtonHandler($event,$event)">
+            <label for="High">High</label>
+        </span>
+
+        <input id="sortSubmitButton" class="sort-form-submit" type="submit" value="Sort">
+    </form>
+
+
+</div>

@@ -4,6 +4,7 @@ import apolloClient from "@/apollo/apollo";
 import gql from "graphql-tag";
 import ITodo from "../../interfaces/ITodo";
 import TodoForm from "../AddTodoForm/todoform.vue";
+import Sort from "../Sort/sort.vue";
 
 
 
@@ -48,6 +49,7 @@ const SET_TODO_DESC = gql`
 @Component({
   components: {
     "todo-form": TodoForm,
+    "sort":Sort,
   },
 })
 export default class Table extends Vue {
@@ -58,7 +60,27 @@ export default class Table extends Vue {
 
   protected todoArray: Array<ITodo> = [];
   protected displayedArr: Array<ITodo> = [];
-  protected filterStr = 'all';
+  protected sortFlag = true ;
+
+  protected stateSpecifier:Array<string> = [];
+  protected prioritySpecifier:Array<string> = [];
+
+  protected flagHandler(e:boolean){
+    this.sortFlag = e;
+  }
+
+  protected stateSpecifierHandler(e:Array<string>):void{
+    this.stateSpecifier = e;
+  }
+
+  protected prioritySpecifierHandler(e:Array<string>):void{
+    this.prioritySpecifier = e;
+  }
+
+
+  
+
+  
   
   public setTodoArray(todo: ITodo) {
     this.todoArray.push(todo);
@@ -80,25 +102,49 @@ export default class Table extends Vue {
     this.displayedArr = this.todoArray
   }
 
-  @Watch("filterStr") filterStringChangeHandler(){
-    this.filterDisplayedArr();
+  @Watch('sortFlag')onSortFlagChange(){
+    this.sortDisplayedArr(this.prioritySpecifier, this.stateSpecifier)
 
   }
 
-  
-  protected filterDisplayedArr(): void{
-    if(this.filterStr === 'done'){
-      this.displayedArr = this.todoArray.filter(todo => todo.isDone === true)
-    }
-    else if(this.filterStr ==='notdone'){
-      this.displayedArr= this.todoArray.filter(todo => todo.isDone === false)
+  protected sortDisplayedArr(priorityArr:Array<string>, stateArr:Array<string>){
+    if(priorityArr.length === 0 && stateArr.length === 0){
+      this.displayedArr = this.todoArray;
     }
 
-    else if(this.filterStr === 'all'){
-      this.displayedArr = this.todoArray
+    else if(priorityArr.length === 0 && stateArr.length > 0){
+      const stateFlag = stateArr[0] === 'Done' ? true : false ;
+      this.displayedArr = this.todoArray.filter(todo => todo.isDone === stateFlag)
     }
-    
+
+    else if(priorityArr.length > 0 && stateArr.length === 0){
+      if(priorityArr.length === 1){
+        this.displayedArr = this.todoArray.filter(todo => todo.priority === priorityArr[0])
+      }
+      else if(priorityArr.length === 2){
+        this.displayedArr = this.todoArray.filter(todo => todo.priority === priorityArr[0]|| todo.priority === priorityArr[1])
+      }
+      else if(priorityArr.length === 3){
+        this.displayedArr = this.todoArray.filter(todo => todo.priority === priorityArr[0]|| todo.priority === priorityArr[1]|| todo.priority === priorityArr[2])
+      }
+    }
+
+    else{
+      const stateFlag = stateArr[0] === 'Done' ? true : false ;
+
+      if(priorityArr.length === 1){
+        this.displayedArr = this.todoArray.filter(todo => (todo.priority === priorityArr[0])&&todo.isDone === stateFlag)
+      }
+      else if(priorityArr.length === 2){
+        this.displayedArr = this.todoArray.filter(todo => (todo.priority === priorityArr[0]|| todo.priority === priorityArr[1]) && todo.isDone === stateFlag)
+      }
+      else if(priorityArr.length === 3){
+        this.displayedArr = this.todoArray.filter(todo => (todo.priority === priorityArr[0]|| todo.priority === priorityArr[1]|| todo.priority === priorityArr[2])&&todo.isDone === stateFlag)
+      }
+    }
+
   }
+
 
 
 
@@ -122,7 +168,7 @@ export default class Table extends Vue {
     //const pos = this.todoArray!.findIndex(todo => todo.id === editId)
     this.displayedArr![index].isDone = !checkState 
     await this.$nextTick();
-    this.filterDisplayedArr();
+    this.sortDisplayedArr(this.prioritySpecifier, this.stateSpecifier)
 
     await apolloClient.mutate({
       mutation: SET_TODO_ISDONE,
@@ -134,13 +180,15 @@ export default class Table extends Vue {
   }
 
   protected async labelHandler(index: number, e: KeyboardEvent) {
-    const editId = this.todoArray[index].id;
     const elem = <HTMLElement>e.target;
-    const desc = elem.innerText;
 
     if (e.key == "Enter") {
+      const editId = this.displayedArr[index].id;
+      const desc = elem.innerText;
       elem.contentEditable = "false";
+      await this.$nextTick();
       this.displayedArr![index].description = desc;
+      
       await apolloClient.mutate({
         mutation: SET_TODO_DESC,
         variables: {
@@ -153,10 +201,12 @@ export default class Table extends Vue {
   }
 
   protected async blurHandler(index: number, e: Event) {
-    const editId = this.todoArray[index].id;
+    const editId = this.displayedArr[index].id;
     const elem = <HTMLElement>e.target;
     const desc = elem.innerText;
+    await this.$nextTick();
     this.displayedArr![index].description = desc;
+    
 
     await apolloClient.mutate({
       mutation: SET_TODO_DESC,
